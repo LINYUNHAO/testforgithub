@@ -20,18 +20,18 @@ clock = pygame.time.Clock()
 
 font = pygame.font.SysFont('mingliupmingliumingliuhkscs',50)
 
-def message_to_screen(color,x,y):
-	screen_text = font.render('中文',True,color)
+def message_to_screen(msg,color,x,y):
+	screen_text = font.render(msg,True,color)
 	gameDisplay.blit(screen_text,[x,y])
 	
 def show_text():
 	gameDisplay.fill(white)
-	message_to_screen(red,400,300)
+	message_to_screen("は",red,400,300)
 	pygame.display.update()
 	#pygame.display.update()
 	
 def show_text_2():
-	message_to_screen(black,100,100)
+	message_to_screen("中文2",black,100,100)
 	pygame.display.update()
 	
 def original_board():
