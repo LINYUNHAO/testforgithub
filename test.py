@@ -1,56 +1,69 @@
-#hw2_q1_skl_slm.py
+import pygame
+import time
 
-import statistics
-import math
-def slm(xlist, ylist):
-    #develop your function here...
-    for i in range(len(xlist)):
-        xlist[i] = float(xlist[i])
-    for j in range(len(ylist)):
-        ylist[j] = float(ylist[j])
+pygame.init()
+
+pygame.font.get_fonts()
+
+red = (255,0,0)
+white = (255,255,255)
+black = (0,0,0)
+
+gameDisplay = pygame.display.set_mode((800,600))
+pygame.display.set_caption('testing game')
+
+pygame.display.update
+
+gameExit = False
+
+clock = pygame.time.Clock()
+
+font = pygame.font.SysFont('mingliupmingliumingliuhkscs',50)
+
+def message_to_screen(color,x,y):
+	screen_text = font.render('中文',True,color)
+	gameDisplay.blit(screen_text,[x,y])
 	
-    if len(xlist) != len(ylist):
-        return None
-    elif len(xlist) < 5 or len(ylist) < 5:
-        return None
-    else:
-        n = len(xlist)
-        xmean = statistics.mean(xlist)
-        ymean = statistics.mean(ylist)
-        
-        eupsum = float(0)
-        upsum = float(0)
-        downsum = float(0)
+def show_text():
+	gameDisplay.fill(white)
+	message_to_screen(red,400,300)
+	pygame.display.update()
+	#pygame.display.update()
+	
+def show_text_2():
+	message_to_screen(black,100,100)
+	pygame.display.update()
+	
+def original_board():
+	gameDisplay.fill(white)
+	pygame.display.update()
 
-        for i in range(n):
-            upsum += (ylist[i] - ymean) * (xlist[i] - xmean)
-            downsum += pow((xlist[i] - xmean), 2)
+
+x = 0
+
+gameDisplay.fill(white)
+pygame.display.update()
+
+while not gameExit:
+	for event in pygame.event.get():
+		if event.type == pygame.QUIT:
+			gameExit = True
+		if event.type == pygame.KEYDOWN:
+			if event.key == pygame.K_d:
+				x += 1
+			if event.key == pygame.K_a:
+				x -= 1
+				if x < 0:
+					x = 0
 			
-        b = float(upsum / downsum)
-        a = ymean - b * xmean
-		
-        for i in range(n):
-            eupsum += pow((ylist[i] - a - b * xlist[i]), 2)
-			
-        s = pow((eupsum / (n - 2)), 0.5)
-		
-        final_list = [a, b, s]
-        return final_list
-		
-#=======
-xstr = input()
-ystr = input()
+	if x == 0:
+		original_board()
+	elif x == 1:
+		show_text()
+	elif x == 2:
+		show_text_2()
+				#break
 
-xall = xstr.split(',')
-yall = ystr.split(',')
-
-out1 = slm(xall, yall)
-if(out1 == None):
-    print("DATA_ERROR")
-else:
-    print("%0.6f" % out1[0])
-    print("%0.6f" % out1[1])
-    print("%0.6f" % out1[2])
-
-print("!!!")
-print("???")
+	#clock.tick()
+pygame.quit()
+quit()
